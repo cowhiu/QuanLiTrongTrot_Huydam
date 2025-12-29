@@ -18,11 +18,14 @@ namespace QuanLiTrongTrot.View.TrangChu
     /// <summary>
     /// Interaction logic for Trangchu.xaml
     /// </summary>
-    public partial class Trangchu : UserControl
+    public partial class TrangChu : UserControl
     {
-        public Trangchu()
+        public TrangChu()
         {
             InitializeComponent();
+        }
+        public void LoadQuanliUser(){
+
         }
     }
 }

@@ -8,6 +8,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using QuanLiTrongTrot.View.TrangChu;
 
 namespace QuanLiTrongTrot
 {
@@ -19,6 +20,7 @@ namespace QuanLiTrongTrot
         private VungTrongView _vungTrongView;
         private CoSoSanXuatView _coSoSanXuatView;
         private SinhVatGayHaiView _sinhVatGayHaiView;
+        private TrangChu _trangChuView;
 
         public MainWindow()
         {
@@ -209,7 +211,14 @@ namespace QuanLiTrongTrot
 
         #endregion
         #region Trang chủ Events
+        private void LoadTrangChuContent()
+        {
+            MainContent.Children.Clear();
+            _trangChuView = new TrangChu();
+            MainContent.Children.Add(_trangChuView);
 
+        }
+        private void btnQuanliuser(object sender, RoutedEventArgs e) => _trangChuView?.LoadQuanliUser();
         #endregion
         #region Giống Cây Events
 
@@ -297,11 +306,7 @@ namespace QuanLiTrongTrot
 
         #endregion
 
-        private void btnQuanliuser(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
+        
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Bạn có chắc muốn đăng xuất?", "Xác nhận",

@@ -77,7 +77,7 @@
                         <TextBlock Text="Người dùng" FontWeight="Bold" FontSize="14" 
                                    Foreground="#333" Margin="15,10,15,5"/>
                         <Button Content="Quản lý người dùng" Style="{StaticResource SidebarButtonStyle}" 
-                                Click="Sidebar_Click" Tag="QuanLyNguoiDung"/>
+                                Click="btnQuanliuser" Tag="QuanLyNguoiDung"/>
                         <Button Content="Lịch sử đăng nhập" Style="{StaticResource SidebarButtonStyle}" 
                                 Click="Sidebar_Click" Tag="LichSuDangNhap"/>
 
