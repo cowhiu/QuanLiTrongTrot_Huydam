@@ -107,10 +107,70 @@ namespace QuanLiTrongTrot.View.VungTrong
         }
 
         #endregion
-
+        private void ReloadCurrentData()
+        {
+            switch (_currentTable)
+            {
+                case "VungTrong":
+                    LoadVungTrong();
+                    break;
+            }
+        }
         private void BtnXoa_Click(object sender, RoutedEventArgs e)
         {
+            // Kiểm tra xem có dòng nào được chọn không
+            if (dgVungTrong.SelectedItem == null)
+            {
+                MessageBox.Show("Vui lòng chọn một dòng để xóa!", "Thông báo",
+                                MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
+            var selectedRow = dgVungTrong.SelectedItem as DataRowView;
+            if (selectedRow == null) return;
+
+            int id = Convert.ToInt32(selectedRow["Id"]);
+            string tenHienThi = "";
+
+            // Lấy tên hiển thị tùy theo bảng
+            switch (_currentTable)
+            {
+                case "VungTrong":
+                    tenHienThi = selectedRow["DiaChi"].ToString();
+                    break;
+            }
+
+            // Xác nhận xóa
+            var result = MessageBox.Show(
+                $"Bạn có chắc muốn xóa \"{tenHienThi}\" (ID: {id})?\n\nThao tác này không thể hoàn tác!",
+                "Xác nhận xóa",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    int deleteResult = DataProvider.DELETE_DATA(tenHienThi, "DiaChi", _currentTable);
+
+                    if (deleteResult > 0)
+                    {
+                        MessageBox.Show("Xóa thành công!", "Thông báo",
+                                        MessageBoxButton.OK, MessageBoxImage.Information);
+                        ReloadCurrentData(); // Reload lại dữ liệu
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không thể xóa dữ liệu!", "Lỗi",
+                                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi xóa: {ex.Message}", "Lỗi",
+                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 }

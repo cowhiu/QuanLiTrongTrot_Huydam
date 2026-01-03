@@ -76,7 +76,7 @@
                         </StackPanel>
                         <ComboBox x:Name="cboGiong" Height="35" Padding="10,8" FontSize="14"
                                   BorderBrush="#DDD" BorderThickness="1" Margin="0,5,0,0"
-                                  DisplayMemberPath="Ten" SelectedValuePath="Id"/>
+                                  DisplayMemberPath="Ten" SelectedValuePath="Id" SelectionChanged="cboGiong_SelectionChanged"/>
                     </StackPanel>
 
                     <!-- Vùng trồng (ComboBox) -->

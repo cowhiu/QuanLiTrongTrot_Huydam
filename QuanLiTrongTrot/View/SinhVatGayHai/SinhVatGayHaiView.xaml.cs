@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Media3D;
 
 namespace QuanLiTrongTrot.View.SinhVatGayHai
 {
@@ -120,7 +121,21 @@ namespace QuanLiTrongTrot.View.SinhVatGayHai
         }
 
         #endregion
-
+        private void ReloadCurrentData()
+        {
+            switch (_currentTable)
+            {
+                case "SinhVatGayHai":
+                    LoadSinhVatGayHai();
+                    break;
+                case "CapNhat_SVGH":
+                    LoadCapNhatSVGH();
+                    break;
+                case "TuoiSau":
+                    LoadTuoiSau();
+                    break;
+            }
+        }
         #region Event Handlers
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -180,7 +195,72 @@ namespace QuanLiTrongTrot.View.SinhVatGayHai
 
         private void BtnXoa_Click(object sender, RoutedEventArgs e)
         {
+            // Kiểm tra xem có dòng nào được chọn không
+            if (dgSinhVatGayHai.SelectedItem == null)
+            {
+                MessageBox.Show("Vui lòng chọn một dòng để xóa!", "Thông báo",
+                                MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
+            var selectedRow = dgSinhVatGayHai.SelectedItem as DataRowView;
+            if (selectedRow == null) return;
+
+            int id = Convert.ToInt32(selectedRow["Id"]);
+            string tenHienThi = "";
+
+            // Lấy tên hiển thị tùy theo bảng
+            switch (_currentTable)
+            {
+                case "SinhVatGayHai":
+                    tenHienThi = selectedRow["Ten"].ToString();
+                    break;
+                case "CapNhat_SVGH":
+                    tenHienThi = selectedRow["NgayGioCN"].ToString();
+                    break;
+                case "TuoiSau":
+                    tenHienThi = selectedRow["Ten"].ToString();
+                    break;
+            }
+            
+            // Xác nhận xóa
+            var result = MessageBox.Show(
+                $"Bạn có chắc muốn xóa \"{tenHienThi}\" (ID: {id})?\n\nThao tác này không thể hoàn tác!",
+                "Xác nhận xóa",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    // ko biết fix
+                    if (tenHienThi == "NgayGioCN")
+                    {
+                        var warningResult = MessageBox.Show("Không thể xóa loại dữ liệu này vì lí do bảo mật!", "Lỗi",
+                                                MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    int deleteResult = DataProvider.DELETE_DATA(tenHienThi, "Ten", _currentTable);
+
+                    if (deleteResult > 0)
+                    {
+                        MessageBox.Show("Xóa thành công!", "Thông báo",
+                                        MessageBoxButton.OK, MessageBoxImage.Information);
+                        ReloadCurrentData(); // Reload lại dữ liệu
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không thể xóa dữ liệu!", "Lỗi",
+                                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi xóa: {ex.Message}", "Lỗi",
+                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 }
