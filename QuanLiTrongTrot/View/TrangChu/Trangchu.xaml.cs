@@ -33,8 +33,7 @@ namespace QuanLiTrongTrot.View.TrangChu
         {
             DisplayTime.Text = DateTime.Now.ToString();
         }
-        public void LoadQuanliUser(){
 
-        }
+       
     }
 }

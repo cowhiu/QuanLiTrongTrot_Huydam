@@ -79,17 +79,17 @@
                         <Button Content="Quản lý người dùng" Style="{StaticResource SidebarButtonStyle}" 
                                 Click="btnQuanliuser" Tag="QuanLyNguoiDung"/>
                         <Button Content="Lịch sử đăng nhập" Style="{StaticResource SidebarButtonStyle}" 
-                                Click="Sidebar_Click" Tag="LichSuDangNhap"/>
+                                Click="btnLichSuDangNhap" Tag="LichSuDangNhap"/>
 
                         <!-- Nhóm: Hành chính -->
                         <TextBlock Text="Hành chính" FontWeight="Bold" FontSize="14" 
                                    Foreground="#333" Margin="15,20,15,5"/>
                         <Button Content="Quản lý hành chính" Style="{StaticResource SidebarButtonStyle}" 
-                                Click="Sidebar_Click" Tag="QuanLyHanhChinh"/>
+                                Click="btnQuanliHanhChinh" Tag="QuanLyHanhChinh"/>
                         <Button Content="Đơn vị cấp huyện" Style="{StaticResource SidebarButtonStyle}" 
-                                Click="Sidebar_Click" Tag="DonViCapHuyen"/>
+                                Click="btnDonViCapHuyen" Tag="DonViCapHuyen"/>
                         <Button Content="Đơn vị cấp xã" Style="{StaticResource SidebarButtonStyle}" 
-                                Click="Sidebar_Click" Tag="DonViCapXa"/>
+                                Click="btnDonViCapXa" Tag="DonViCapXa"/>
 
                         <!-- Nhóm: Profile -->
                         <TextBlock Text="Profile" FontWeight="Bold" FontSize="14" 

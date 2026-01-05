@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -52,7 +53,6 @@ namespace QuanLiTrongTrot
             string username = txtUsername.Text;
             string password = txtPassword.Password;
 
-            // TODO: Thêm logic xác thực đăng nhập
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo",
@@ -62,7 +62,7 @@ namespace QuanLiTrongTrot
 
             if ( Track_Login() )
             {
-                MainWindow mainWindow = new MainWindow();
+                MainWindow mainWindow = new MainWindow(txtUsername.Text);
                 mainWindow.Show();
                 this.Close();
             }

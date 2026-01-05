@@ -1,19 +1,22 @@
-﻿using QuanLiTrongTrot.View.GiongCay;
-using QuanLiTrongTrot.View.ThuocBVTV;
-using QuanLiTrongTrot.View.PhanBon;
-using QuanLiTrongTrot.View.VungTrong;
+﻿using QuanLiTrongTrot.Model;
 using QuanLiTrongTrot.View.CoSoSanXuat;
+using QuanLiTrongTrot.View.GiongCay;
+using QuanLiTrongTrot.View.PhanBon;
 using QuanLiTrongTrot.View.SinhVatGayHai;
+using QuanLiTrongTrot.View.ThuocBVTV;
+using QuanLiTrongTrot.View.TrangChu;
+using QuanLiTrongTrot.View.VungTrong;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
-using QuanLiTrongTrot.View.TrangChu;
 
 namespace QuanLiTrongTrot
 {
     public partial class MainWindow : Window
     {
+        private readonly string _username;
         private GiongCayView _giongCayView;
         private ThuocBVTVView _thuocBVTVView;
         private PhanBonView _phanBonView;
@@ -21,11 +24,16 @@ namespace QuanLiTrongTrot
         private CoSoSanXuatView _coSoSanXuatView;
         private SinhVatGayHaiView _sinhVatGayHaiView;
         private TrangChu _trangChuView;
+        private TrangchuView _trangchuView;
 
-        public MainWindow()
+        public MainWindow() : this(string.Empty)
+        {
+        }
+        public MainWindow(string username)
         {
             InitializeComponent();
             LoadTrangChuContent();
+            _username = username;
         }
 
         private void MenuTab_Click(object sender, RoutedEventArgs e)
@@ -79,15 +87,28 @@ namespace QuanLiTrongTrot
         private void LoadDefaultSidebar()
         {
             SidebarContent.Children.Clear();
-
             SidebarContent.Children.Add(CreateSidebarHeader("Người dùng"));
-            SidebarContent.Children.Add(CreateSidebarButton("Quản lý người dùng", "QuanLyNguoiDung"));
-            SidebarContent.Children.Add(CreateSidebarButton("Lịch sử đăng nhập", "LichSuDangNhap"));
+
+            var btnQuanliusers = CreateSidebarButton("Quản lý người dùng", "QuanLyNguoiDung");
+            btnQuanliusers.Click += btnQuanliuser;
+            SidebarContent.Children.Add(btnQuanliusers);
+
+            var btnQuanlilichsu = CreateSidebarButton("Lịch sử đăng nhập", "LichSuDangNhap");
+            btnQuanlilichsu.Click += btnLichSuDangNhap;
+            SidebarContent.Children.Add(btnQuanlilichsu);
 
             SidebarContent.Children.Add(CreateSidebarHeader("Hành chính", 20));
-            SidebarContent.Children.Add(CreateSidebarButton("Quản lý hành chính", "QuanLyHanhChinh"));
-            SidebarContent.Children.Add(CreateSidebarButton("Đơn vị cấp huyện", "DonViCapHuyen"));
-            SidebarContent.Children.Add(CreateSidebarButton("Đơn vị cấp xã", "DonViCapXa"));
+            var btnHanhChinh = CreateSidebarButton("Quản lý hành chính", "QuanLyHanhChinh");
+            btnHanhChinh.Click += btnQuanliHanhChinh;
+            SidebarContent.Children.Add(btnHanhChinh);
+
+            var CapHuyen = CreateSidebarButton("Đơn vị cấp huyện", "DonViCapHuyen");
+            CapHuyen.Click += btnDonViCapHuyen;
+            SidebarContent.Children.Add(CapHuyen);
+
+            var CapXa = CreateSidebarButton("Đơn vị cấp xã", "DonViCapXa");
+            CapXa.Click += btnDonViCapXa;
+            SidebarContent.Children.Add(CapXa);
 
             SidebarContent.Children.Add(CreateSidebarHeader("Profile", 20));
             SidebarContent.Children.Add(CreateSidebarButton("Đổi mật khẩu", "DoiMatKhau"));
@@ -216,7 +237,43 @@ namespace QuanLiTrongTrot
             MainContent.Children.Add(_trangChuView);
 
         }
-        private void btnQuanliuser(object sender, RoutedEventArgs e) => _trangChuView?.LoadQuanliUser();
+        public void LoadQuanliUser(string os)
+        {
+            MainContent.Children.Clear();
+            _trangchuView = new TrangchuView(os);
+            MainContent.Children.Add(_trangchuView);
+        }
+        private void btnLichSuDangNhap(object sender, EventArgs e)
+        {
+            LoadQuanliUser("QuanliLichSu");
+        }
+        private void btnQuanliHanhChinh(object sender, EventArgs e) 
+        {
+            LoadQuanliUser("QuanliHanhChinh");
+        }
+        private void btnDonViCapHuyen(object sender, EventArgs e)
+        {
+            LoadQuanliUser("DonViCaphuyen");
+        }
+        private void btnDonViCapXa(object sender, EventArgs e)
+        {
+            LoadQuanliUser("DonViCapXa");
+        }
+        private void btnQuanliuser(object sender, RoutedEventArgs e)
+        {
+            string[] strings = { _username , "3" };
+            string[] data_name = { "Ten", "QuyenID" };
+            bool a = DataProvider.CHECK_SAME_ROW_DATA( strings , data_name , "TaiKhoan" );
+            if( a )
+            {
+                MessageBox.Show("Bạn không có quyền sử dụng tính năng này!", "Thông báo",
+                                        MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                LoadQuanliUser("Quanliuser");
+            }
+        }
         #endregion
         #region Giống Cây Events
 

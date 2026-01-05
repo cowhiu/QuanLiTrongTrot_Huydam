@@ -66,6 +66,7 @@
     <Compile Include="Model\ThuocBVTV.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\VungTrong.cs" />
+    <Compile Include="Model\WeatherResponse.cs" />
     <Compile Include="Regproblems.xaml.cs">
       <DependentUpon>Regproblems.xaml</DependentUpon>
     </Compile>
@@ -103,6 +104,9 @@
     </Compile>
     <Compile Include="View\TrangChu\Trangchu.xaml.cs">
       <DependentUpon>Trangchu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TrangChu\TrangchuView.xaml.cs">
+      <DependentUpon>TrangchuView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\VungTrong\AddVungTrongWindow.xaml.cs">
       <DependentUpon>AddVungTrongWindow.xaml</DependentUpon>
@@ -165,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TrangChu\Trangchu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TrangChu\TrangchuView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
