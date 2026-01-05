@@ -105,6 +105,7 @@ namespace QuanLiTrongTrot.View.CoSoSanXuat
         {
             AddCoSoSanXuatWindow addCoSoSanXuatWindow = new AddCoSoSanXuatWindow();
             addCoSoSanXuatWindow.ShowDialog();
+            ReloadCurrentData();
         }
 
         #endregion

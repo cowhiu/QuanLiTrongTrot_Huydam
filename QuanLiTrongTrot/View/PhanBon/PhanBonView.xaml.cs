@@ -185,6 +185,7 @@ namespace QuanLiTrongTrot.View.PhanBon
         {
             AddPhanBonWindow addPhanBonWindow = new AddPhanBonWindow();
             addPhanBonWindow.ShowDialog();
+            ReloadCurrentData();
 
         }
 

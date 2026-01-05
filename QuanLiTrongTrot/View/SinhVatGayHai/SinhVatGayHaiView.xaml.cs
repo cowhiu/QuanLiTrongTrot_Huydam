@@ -190,6 +190,7 @@ namespace QuanLiTrongTrot.View.SinhVatGayHai
         {
             AddSinhVatGayHaiWindow addWindow = new AddSinhVatGayHaiWindow();
             addWindow.ShowDialog();
+            ReloadCurrentData();
         }
 
         #endregion

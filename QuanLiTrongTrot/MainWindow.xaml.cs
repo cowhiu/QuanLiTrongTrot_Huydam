@@ -25,6 +25,7 @@ namespace QuanLiTrongTrot
         public MainWindow()
         {
             InitializeComponent();
+            LoadTrangChuContent();
         }
 
         private void MenuTab_Click(object sender, RoutedEventArgs e)
@@ -38,10 +39,7 @@ namespace QuanLiTrongTrot
             {
                 case "TrangChu":
                     LoadDefaultSidebar();
-                    MainContent.Children.Clear();
-                    MainContent.Children.Add(txtWelcome);
-                    txtWelcome.Text = "Chào mừng bạn đến với hệ thống!";
-                    txtWelcome.Visibility = Visibility.Visible;
+                    LoadTrangChuContent();
                     break;
 
                 case "GiongCay":

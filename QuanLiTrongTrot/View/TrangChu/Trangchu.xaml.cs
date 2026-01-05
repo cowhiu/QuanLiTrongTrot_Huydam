@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace QuanLiTrongTrot.View.TrangChu
 {
@@ -23,6 +24,14 @@ namespace QuanLiTrongTrot.View.TrangChu
         public TrangChu()
         {
             InitializeComponent();
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(Update_Timer);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+        }
+        public void Update_Timer(object sender, EventArgs e)
+        {
+            DisplayTime.Text = DateTime.Now.ToString();
         }
         public void LoadQuanliUser(){
 
