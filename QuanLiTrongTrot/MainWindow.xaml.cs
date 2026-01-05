@@ -7,6 +7,7 @@ using QuanLiTrongTrot.View.ThuocBVTV;
 using QuanLiTrongTrot.View.TrangChu;
 using QuanLiTrongTrot.View.VungTrong;
 using System;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
