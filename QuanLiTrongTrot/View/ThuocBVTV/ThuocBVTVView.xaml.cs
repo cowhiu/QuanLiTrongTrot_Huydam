@@ -168,7 +168,9 @@ namespace QuanLiTrongTrot.View.ThuocBVTV
 
         private void BtnThemMoi_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"Thêm mới vào bảng: {_currentTable}", "Thông báo");
+            AddThuocBVTVWindow addWindow = new AddThuocBVTVWindow();
+            addWindow.ShowDialog();
+            ReloadCurrentData();
         }
 
         #endregion

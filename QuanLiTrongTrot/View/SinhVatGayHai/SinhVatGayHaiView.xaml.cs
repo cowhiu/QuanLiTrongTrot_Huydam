@@ -188,7 +188,8 @@ namespace QuanLiTrongTrot.View.SinhVatGayHai
 
         private void BtnThemMoi_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"Thêm mới vào bảng: {_currentTable}", "Thông báo");
+            AddSinhVatGayHaiWindow addWindow = new AddSinhVatGayHaiWindow();
+            addWindow.ShowDialog();
         }
 
         #endregion

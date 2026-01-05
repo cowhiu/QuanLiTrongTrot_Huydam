@@ -103,7 +103,9 @@ namespace QuanLiTrongTrot.View.VungTrong
 
         private void BtnThemMoi_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"Thêm mới vào bảng: {_currentTable}", "Thông báo");
+            AddVungTrongWindow addWindow = new AddVungTrongWindow();
+            addWindow.ShowDialog();
+            ReloadCurrentData();
         }
 
         #endregion

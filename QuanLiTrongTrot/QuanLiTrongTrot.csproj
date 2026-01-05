@@ -71,6 +71,9 @@
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="View\CoSoSanXuat\AddCoSoSanXuatWindow.xaml.cs">
+      <DependentUpon>AddCoSoSanXuatWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CoSoSanXuat\CoSoSanXuatView.xaml.cs">
       <DependentUpon>CoSoSanXuatView.xaml</DependentUpon>
     </Compile>
@@ -80,17 +83,29 @@
     <Compile Include="View\GiongCay\GiongCayView.xaml.cs">
       <DependentUpon>GiongCayView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PhanBon\AddPhanBonWindow.xaml.cs">
+      <DependentUpon>AddPhanBonWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PhanBon\PhanBonView.xaml.cs">
       <DependentUpon>PhanBonView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SinhVatGayHai\AddSinhVatGayHaiWindow.xaml.cs">
+      <DependentUpon>AddSinhVatGayHaiWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SinhVatGayHai\SinhVatGayHaiView.xaml.cs">
       <DependentUpon>SinhVatGayHaiView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ThuocBVTV\AddThuocBVTVWindow.xaml.cs">
+      <DependentUpon>AddThuocBVTVWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ThuocBVTV\ThuocBVTVView.xaml.cs">
       <DependentUpon>ThuocBVTVView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TrangChu\Trangchu.xaml.cs">
       <DependentUpon>Trangchu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\VungTrong\AddVungTrongWindow.xaml.cs">
+      <DependentUpon>AddVungTrongWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\VungTrong\VungTrongView.xaml.cs">
       <DependentUpon>VungTrongView.xaml</DependentUpon>
@@ -118,6 +133,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CoSoSanXuat\AddCoSoSanXuatWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CoSoSanXuat\CoSoSanXuatView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -128,10 +146,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\PhanBon\AddPhanBonWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\PhanBon\PhanBonView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\SinhVatGayHai\AddSinhVatGayHaiWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SinhVatGayHai\SinhVatGayHaiView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ThuocBVTV\AddThuocBVTVWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ThuocBVTV\ThuocBVTVView.xaml">
@@ -139,6 +166,9 @@
     </Page>
     <Page Include="View\TrangChu\Trangchu.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\VungTrong\AddVungTrongWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\VungTrong\VungTrongView.xaml">

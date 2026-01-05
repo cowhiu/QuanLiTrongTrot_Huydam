@@ -103,7 +103,8 @@ namespace QuanLiTrongTrot.View.CoSoSanXuat
 
         private void BtnThemMoi_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"Thêm mới vào bảng: {_currentTable}", "Thông báo");
+            AddCoSoSanXuatWindow addCoSoSanXuatWindow = new AddCoSoSanXuatWindow();
+            addCoSoSanXuatWindow.ShowDialog();
         }
 
         #endregion
