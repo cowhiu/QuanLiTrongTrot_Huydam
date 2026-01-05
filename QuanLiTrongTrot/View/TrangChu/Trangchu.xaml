@@ -73,7 +73,7 @@
                                    Foreground="White" FontSize="12" Margin="0,3"/>
                         <TextBlock x:Name="DewPoint" Grid.Row="2" Grid.Column="0" Text="Dew point: 10°C" 
                                    Foreground="White" FontSize="12" Margin="0,3"/>
-                        <TextBlock x:Name="Visibility" Grid.Row="2" Grid.Column="1" Text="Visibility: 10.0km" 
+                        <TextBlock x:Name="VisibilityText" Grid.Row="2" Grid.Column="1" Text="Visibility: 10.0km" 
                                    Foreground="White" FontSize="12" Margin="0,3"/>
                     </Grid>
                 </Grid>

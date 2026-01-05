@@ -1,0 +1,392 @@
+﻿<UserControl x:Class="QuanLiTrongTrot.View.VungTrong.GiaodienVungTrongView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:QuanLiTrongTrot.View.VungTrong"
+             mc:Ignorable="d"
+             d:DesignHeight="650" d:DesignWidth="1200">
+
+    <Grid Background="#F3F6F7" Margin="14">
+        <!-- ===== Tất cả style nằm trong 1 file ===== -->
+        <Grid.Resources>
+            <SolidColorBrush x:Key="BrushText" Color="#0F172A"/>
+            <SolidColorBrush x:Key="BrushSubText" Color="#64748B"/>
+            <SolidColorBrush x:Key="BrushBorder" Color="#DCE3E7"/>
+            <SolidColorBrush x:Key="BrushCard" Color="White"/>
+
+            <SolidColorBrush x:Key="BrushGreen" Color="#2E7D32"/>
+            <SolidColorBrush x:Key="BrushGreenSoft" Color="#E8F5E9"/>
+            <SolidColorBrush x:Key="BrushBlueSoft" Color="#E8F1FF"/>
+            <SolidColorBrush x:Key="BrushOrange" Color="#FF6A2B"/>
+            <SolidColorBrush x:Key="BrushOrangeSoft" Color="#FFF3E9"/>
+            <SolidColorBrush x:Key="BrushPurpleSoft" Color="#F3E8FF"/>
+
+            <Style x:Key="Card" TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource BrushCard}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource BrushBorder}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CornerRadius" Value="14"/>
+                <Setter Property="Padding" Value="14"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="18" ShadowDepth="2" Opacity="0.12"/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="Title" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="{StaticResource BrushText}"/>
+            </Style>
+
+            <Style x:Key="SectionTitle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Foreground" Value="{StaticResource BrushText}"/>
+            </Style>
+
+            <Style x:Key="Label" TargetType="TextBlock">
+                <Setter Property="Margin" Value="0,12,0,6"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Foreground" Value="#334155"/>
+            </Style>
+
+            <Style x:Key="Input" TargetType="TextBox">
+                <Setter Property="Height" Value="36"/>
+                <Setter Property="Padding" Value="10,0"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="BorderBrush" Value="#CBD5E1"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Background" Value="#FFFFFF"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border CornerRadius="10"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsKeyboardFocused" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource BrushGreen}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="Select" TargetType="ComboBox">
+                <Setter Property="Height" Value="36"/>
+                <Setter Property="Padding" Value="10,0"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="BorderBrush" Value="#CBD5E1"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Background" Value="#FFFFFF"/>
+                <Setter Property="FontSize" Value="13"/>
+            </Style>
+
+            <Style x:Key="BtnBase" TargetType="Button">
+                <Setter Property="Height" Value="38"/>
+                <Setter Property="MinWidth" Value="92"/>
+                <Setter Property="Padding" Value="14,8"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Style>
+
+            <Style x:Key="BtnGreen" TargetType="Button" BasedOn="{StaticResource BtnBase}">
+                <Setter Property="Background" Value="{StaticResource BrushGreen}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Margin" Value="0,0,8,0"/>
+            </Style>
+
+            <Style x:Key="BtnGhost" TargetType="Button" BasedOn="{StaticResource BtnBase}">
+                <Setter Property="Background" Value="#F8FAFC"/>
+                <Setter Property="Foreground" Value="#0F172A"/>
+                <Setter Property="BorderBrush" Value="#CBD5E1"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Margin" Value="0,0,8,0"/>
+            </Style>
+
+            <Style x:Key="BtnOrange" TargetType="Button" BasedOn="{StaticResource BtnBase}">
+                <Setter Property="Background" Value="{StaticResource BrushOrange}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Margin" Value="0,0,8,0"/>
+            </Style>
+
+            <!-- DataGrid styles -->
+            <Style TargetType="DataGrid">
+                <Setter Property="RowHeaderWidth" Value="0"/>
+                <Setter Property="CanUserAddRows" Value="False"/>
+                <Setter Property="CanUserDeleteRows" Value="False"/>
+                <Setter Property="IsReadOnly" Value="True"/>
+                <Setter Property="HeadersVisibility" Value="Column"/>
+                <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+                <Setter Property="MinRowHeight" Value="36"/>
+                <Setter Property="BorderBrush" Value="#CBD5E1"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="HorizontalGridLinesBrush" Value="#EEF2F7"/>
+            </Style>
+
+            <Style TargetType="DataGridColumnHeader">
+                <Setter Property="Background" Value="#F1F5F9"/>
+                <Setter Property="Foreground" Value="#0F172A"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Height" Value="38"/>
+                <Setter Property="BorderBrush" Value="#E2E8F0"/>
+                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            </Style>
+
+            <Style TargetType="DataGridRow">
+                <Setter Property="Background" Value="White"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#F8FAFC"/>
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="{StaticResource BrushGreenSoft}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel>
+                <TextBlock Style="{StaticResource Title}" Text="Quản lý vùng trồng"/>
+                <TextBlock Margin="0,4,0,0"
+                           Foreground="{StaticResource BrushSubText}"
+                           Text="Bấm chọn một vùng trồng để xem chi tiết: loại đất, nguồn nước tưới, giống cây, ngày xuống giống, dự kiến sản lượng..."/>
+            </StackPanel>
+
+            <Border Grid.Column="1" CornerRadius="999" Padding="12,6"
+                    Background="{StaticResource BrushGreenSoft}" BorderBrush="#B7E1B9" BorderThickness="1"
+                    VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="🌿" FontSize="14" Margin="0,0,8,0"/>
+                    <TextBlock Foreground="{StaticResource BrushGreen}" FontWeight="SemiBold"
+                               Text="{Binding Selected.MaVungTrong, FallbackValue='Chưa chọn vùng'}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- MAIN -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2.2*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- LEFT: LIST -->
+            <Border Grid.Column="0" Style="{StaticResource Card}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Style="{StaticResource SectionTitle}" Text="Danh sách vùng trồng"/>
+
+                    <!-- Search / Filter -->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="240"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border CornerRadius="12" BorderBrush="#CBD5E1" BorderThickness="1" Background="White">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="36"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Background="{StaticResource BrushBlueSoft}" CornerRadius="12,0,0,12"/>
+                                <TextBlock Grid.Column="0" Text="🔎" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBox Grid.Column="1"
+                                         BorderThickness="0"
+                                         Background="Transparent"
+                                         Height="36"
+                                         Padding="0,0,10,0"
+                                         VerticalContentAlignment="Center"
+                                         Text="{Binding KeywordVungTrong, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
+                                         ToolTip="Tìm theo mã vùng, tên vùng, tỉnh/xã, chủ sở hữu"/>
+                            </Grid>
+                        </Border>
+
+                        <ComboBox Grid.Column="2" Style="{StaticResource Select}"
+                                  SelectedValuePath="Tag"
+                                  SelectedValue="{Binding FilterTieuChuan, FallbackValue={x:Null}}"
+                                  ToolTip="Lọc tiêu chuẩn">
+                            <ComboBoxItem Content="Tất cả tiêu chuẩn" Tag="{x:Null}"/>
+                            <ComboBoxItem Content="VietGAP" Tag="VietGAP"/>
+                            <ComboBoxItem Content="Truyền thống" Tag="TruyenThong"/>
+                        </ComboBox>
+                    </Grid>
+
+                    <!-- DataGrid -->
+                    <DataGrid Grid.Row="4"
+                              ItemsSource="{Binding VungTrongView, FallbackValue={x:Null}}"
+                              SelectedItem="{Binding Selected, Mode=TwoWay, FallbackValue={x:Null}}"
+                              AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Mã vùng" Binding="{Binding MaVungTrong}" Width="110"/>
+                            <DataGridTextColumn Header="Tên vùng" Binding="{Binding TenVung}" Width="*"/>
+                            <DataGridTextColumn Header="Tỉnh" Binding="{Binding Tinh}" Width="140"/>
+                            <DataGridTextColumn Header="Xã" Binding="{Binding Xa}" Width="140"/>
+                            <DataGridTextColumn Header="Giống hiện tại" Binding="{Binding GiongCayHienTai}" Width="180"/>
+                            <DataGridTextColumn Header="Tiêu chuẩn" Binding="{Binding TieuChuan}" Width="120"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+
+            <!-- RIGHT: DETAIL -->
+            <Border Grid.Column="2" Style="{StaticResource Card}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource SectionTitle}" Text="Chi tiết vùng trồng"/>
+                        <TextBlock Margin="0,4,0,0"
+                                   Foreground="{StaticResource BrushSubText}"
+                                   TextWrapping="Wrap"
+                                   Text="Thông tin chi tiết sẽ đổi theo dòng bạn chọn ở bảng bên trái."/>
+                    </StackPanel>
+
+                    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource Label}" Text="Mã vùng trồng"/>
+                            <TextBox Style="{StaticResource Input}" Text="{Binding MaVungTrong, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"/>
+
+                            <TextBlock Style="{StaticResource Label}" Text="Tên vùng trồng"/>
+                            <TextBox Style="{StaticResource Input}" Text="{Binding TenVung, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"/>
+
+                            <TextBlock Style="{StaticResource Label}" Text="Đơn vị hành chính"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Style="{StaticResource Input}" Text="{Binding Tinh, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}" ToolTip="Tỉnh/Thành phố"/>
+                                <TextBox Grid.Column="2" Style="{StaticResource Input}" Text="{Binding Xa, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}" ToolTip="Xã/Phường"/>
+                            </Grid>
+
+                            <!-- Soil & Water -->
+                            <Border Margin="0,16,0,0" CornerRadius="14" Padding="12"
+                                    Background="{StaticResource BrushPurpleSoft}" BorderBrush="#E9D5FF" BorderThickness="1">
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold" Foreground="{StaticResource BrushText}" Text="🌱 Điều kiện canh tác"/>
+
+                                    <TextBlock Margin="0,10,0,6" Foreground="#334155" FontWeight="SemiBold" Text="Loại đất"/>
+                                    <ComboBox Style="{StaticResource Select}"
+                                              SelectedValuePath="Tag"
+                                              SelectedValue="{Binding LoaiDat, UpdateSourceTrigger=PropertyChanged, FallbackValue=PhuSa}">
+                                        <ComboBoxItem Content="Phù sa" Tag="PhuSa"/>
+                                        <ComboBoxItem Content="Đất cát" Tag="DatCat"/>
+                                        <ComboBoxItem Content="Đất phèn" Tag="DatPhen"/>
+                                        <ComboBoxItem Content="Đất thịt" Tag="DatThit"/>
+                                        <ComboBoxItem Content="Khác" Tag="Khac"/>
+                                    </ComboBox>
+
+                                    <TextBlock Margin="0,12,0,6" Foreground="#334155" FontWeight="SemiBold" Text="Nguồn nước tưới"/>
+                                    <ComboBox Style="{StaticResource Select}"
+                                              SelectedValuePath="Tag"
+                                              SelectedValue="{Binding NguonNuocTuoi, UpdateSourceTrigger=PropertyChanged, FallbackValue=KenhMuong}">
+                                        <ComboBoxItem Content="Kênh mương" Tag="KenhMuong"/>
+                                        <ComboBoxItem Content="Giếng khoan" Tag="GiengKhoan"/>
+                                        <ComboBoxItem Content="Tự nhiên" Tag="TuNhien"/>
+                                        <ComboBoxItem Content="Khác" Tag="Khac"/>
+                                    </ComboBox>
+
+                                    <TextBlock Margin="0,10,0,0" Foreground="{StaticResource BrushSubText}" TextWrapping="Wrap"
+                                               Text="Gợi ý: Loại đất + nguồn nước giúp gợi ý giống cây phù hợp."/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Crop info -->
+                            <Border Margin="0,12,0,0" CornerRadius="14" Padding="12"
+                                    Background="{StaticResource BrushGreenSoft}" BorderBrush="#B7E1B9" BorderThickness="1">
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold" Foreground="{StaticResource BrushGreen}" Text="🌿 Canh tác hiện tại"/>
+
+                                    <TextBlock Style="{StaticResource Label}" Margin="0,10,0,6" Text="Giống cây hiện tại"/>
+                                    <TextBox Style="{StaticResource Input}" Text="{Binding GiongCayHienTai, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"/>
+
+                                    <TextBlock Style="{StaticResource Label}" Text="Ngày xuống giống"/>
+                                    <TextBox Style="{StaticResource Input}" Text="{Binding NgayXuongGiong, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
+                                             ToolTip="VD: 2026-01-07"/>
+
+                                    <TextBlock Style="{StaticResource Label}" Text="Dự báo ngày thu hoạch"/>
+                                    <TextBox Style="{StaticResource Input}" Text="{Binding DuBaoNgayThuHoach, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Report/Owner -->
+                            <Border Margin="0,12,0,0" CornerRadius="14" Padding="12"
+                                    Background="{StaticResource BrushOrangeSoft}" BorderBrush="#FFD6BF" BorderThickness="1">
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold" Foreground="#9A3412" Text="📈 Báo cáo &amp; quản lý"/>
+
+                                    <TextBlock Style="{StaticResource Label}" Margin="0,10,0,6" Text="Dự kiến năng suất / sản lượng"/>
+                                    <TextBox Style="{StaticResource Input}" Text="{Binding DuKienSanLuong, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
+                                             ToolTip="VD: 25 tấn/năm"/>
+
+                                    <TextBlock Style="{StaticResource Label}" Text="Chủ sở hữu"/>
+                                    <TextBox Style="{StaticResource Input}" Text="{Binding ChuSoHuu, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"/>
+
+                                    <TextBlock Style="{StaticResource Label}" Text="Tiêu chuẩn"/>
+                                    <ComboBox Style="{StaticResource Select}"
+                                              SelectedValuePath="Tag"
+                                              SelectedValue="{Binding TieuChuan, UpdateSourceTrigger=PropertyChanged, FallbackValue=VietGAP}">
+                                        <ComboBoxItem Content="VietGAP" Tag="VietGAP"/>
+                                        <ComboBoxItem Content="Truyền thống" Tag="TruyenThong"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <!-- Buttons -->
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Style="{StaticResource BtnGhost}" Content="Tạo mới" Command="{Binding NewVungTrongCommand}"/>
+                        <Button Style="{StaticResource BtnGhost}" Content="Sửa" Command="{Binding EditVungTrongCommand}"/>
+                        <Button Style="{StaticResource BtnGreen}" Content="Lưu" Command="{Binding SaveVungTrongCommand}"/>
+                        <Button Style="{StaticResource BtnOrange}" Content="Xem chi tiết" Command="{Binding OpenDetailCommand}"/>
+                        <Button Style="{StaticResource BtnGhost}" Content="Bỏ chọn" Margin="0" Command="{Binding ClearSelectionCommand}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>
