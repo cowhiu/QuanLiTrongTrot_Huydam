@@ -6,7 +6,6 @@
              mc:Ignorable="d"
              d:DesignHeight="650" d:DesignWidth="1100">
 
-    <!-- 1 file XAML: tự chứa style, không cần tạo file nào khác -->
     <Grid Background="#F3F6F7" Margin="14">
         <Grid.Resources>
             <SolidColorBrush x:Key="BrushText" Color="#0F172A"/>
