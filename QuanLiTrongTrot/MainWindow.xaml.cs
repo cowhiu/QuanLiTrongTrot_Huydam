@@ -112,7 +112,9 @@ namespace QuanLiTrongTrot
             SidebarContent.Children.Add(CapXa);
 
             SidebarContent.Children.Add(CreateSidebarHeader("Profile", 20));
-            SidebarContent.Children.Add(CreateSidebarButton("Đổi mật khẩu", "DoiMatKhau"));
+            var btnChangePassword = CreateSidebarButton("Đổi mật khẩu", "DoiMatKhau");
+            btnChangePassword.Click += Sidebar_Click;
+            SidebarContent.Children.Add(btnChangePassword);
         }
 
         private void LoadGiongCaySidebar()
@@ -375,7 +377,8 @@ namespace QuanLiTrongTrot
 
         private void Sidebar_Click(object sender, RoutedEventArgs e)
         {
-
+            ChangePasswordWindow changePasswordWindow = new ChangePasswordWindow(_username);
+            changePasswordWindow.ShowDialog();
         }
     }
 }
