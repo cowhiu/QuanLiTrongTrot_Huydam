@@ -85,7 +85,7 @@ namespace QuanLiTrongTrot.View.CoSoSanXuat
         private string BuildRowFilter(string keyword)
         {
             List<string> conditions = new List<string>();
-            
+
             foreach (DataColumn col in _currentData.Columns)
             {
                 if (col.DataType == typeof(string))
@@ -175,5 +175,4 @@ namespace QuanLiTrongTrot.View.CoSoSanXuat
             }
         }
     }
-
-}-
+}

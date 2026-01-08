@@ -9,7 +9,7 @@ namespace QuanLiTrongTrot.Model
     {
         
         // Thay connection string theo máy bạn
-        public static string connectionString = @"Data Source=localhost;Initial Catalog=KTPM;Integrated Security=True";
+        public static string connectionString = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=KTPM;Integrated Security=True";
         public static DataTable ExecuteQuery(string query, object[] parameters = null)
         {
             DataTable data = new DataTable();
