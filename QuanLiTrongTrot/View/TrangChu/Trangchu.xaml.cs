@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
+using QuanLiTrongTrot.Model;
+using QuanLiTrongTrot.ViewModel;
 
 namespace QuanLiTrongTrot.View.TrangChu
 {
@@ -21,11 +13,15 @@ namespace QuanLiTrongTrot.View.TrangChu
     /// </summary>
     public partial class TrangChu : UserControl
     {
+        private readonly WeatherViewModel _vm = new WeatherViewModel();
         public TrangChu()
         {
+            
             InitializeComponent();
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(Update_Timer);
+            DataContext = _vm;
+            Loaded += async (_, __) => await _vm.LoadWeatherAsync();
+            var dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += Update_Timer;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
         }
@@ -33,7 +29,5 @@ namespace QuanLiTrongTrot.View.TrangChu
         {
             DisplayTime.Text = DateTime.Now.ToString();
         }
-
-       
     }
 }

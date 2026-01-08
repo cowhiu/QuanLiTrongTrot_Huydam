@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -55,13 +58,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ChangePasswordWindow.xaml.cs">
+      <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\CoSoSanXuat.cs" />
+    <Compile Include="Model\CoSoSanXuatPhanBonModel.cs" />
     <Compile Include="Model\DataProvider.cs" />
     <Compile Include="Model\GiongCay.cs" />
     <Compile Include="Model\PhanBon.cs" />
+    <Compile Include="Model\SanPhamCoSoModel.cs" />
     <Compile Include="Model\SinhVatGayHai.cs" />
     <Compile Include="Model\ThuocBVTV.cs" />
     <Compile Include="Model\User.cs" />
@@ -70,15 +78,12 @@
     <Compile Include="Regproblems.xaml.cs">
       <DependentUpon>Regproblems.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\WeatherService.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\CoSoSanXuatPhanBonViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="View\CoSoSanXuat\AddCoSoSanXuatWindow.xaml.cs">
-      <DependentUpon>AddCoSoSanXuatWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\CoSoSanXuat\CoSoSanXuatPhanBonModel.cs" />
-    <Compile Include="View\CoSoSanXuat\CoSoSanXuatView.xaml.cs">
-      <DependentUpon>CoSoSanXuatView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModel\SanPhamCoSoSanXuatViewModel.cs" />
+    <Compile Include="ViewModel\WeatherViewModel.cs" />
     <Compile Include="View\CoSoSanXuat\GiaodienCoSoSanXuatPhanBon.xaml.cs">
       <DependentUpon>GiaodienCoSoSanXuatPhanBon.xaml</DependentUpon>
     </Compile>
@@ -130,6 +135,10 @@
     <Compile Include="View\VungTrong\VungTrongView.xaml.cs">
       <DependentUpon>VungTrongView.xaml</DependentUpon>
     </Compile>
+    <Page Include="ChangePasswordWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -151,12 +160,6 @@
     </Page>
     <Page Include="ResourceXAML\MainResource.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\CoSoSanXuat\AddCoSoSanXuatWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\CoSoSanXuat\CoSoSanXuatView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CoSoSanXuat\GiaodienCoSoSanXuatPhanBon.xaml">
@@ -218,9 +221,6 @@
     <Page Include="View\VungTrong\VungTrongView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Window1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -240,6 +240,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

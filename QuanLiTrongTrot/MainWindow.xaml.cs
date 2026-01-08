@@ -7,10 +7,8 @@ using QuanLiTrongTrot.View.ThuocBVTV;
 using QuanLiTrongTrot.View.TrangChu;
 using QuanLiTrongTrot.View.VungTrong;
 using System;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Media;
 
 namespace QuanLiTrongTrot
@@ -22,7 +20,10 @@ namespace QuanLiTrongTrot
         private ThuocBVTVView _thuocBVTVView;
         private PhanBonView _phanBonView;
         private VungTrongView _vungTrongView;
-        private CoSoSanXuatView _coSoSanXuatView;
+
+        // FIX: CoSoSanXuatView does not exist in the project, so use the correct existing view class.
+        private TrangchuView _coSoSanXuatView;
+
         private SinhVatGayHaiView _sinhVatGayHaiView;
         private TrangChu _trangChuView;
         private TrangchuView _trangchuView;
@@ -30,6 +31,7 @@ namespace QuanLiTrongTrot
         public MainWindow() : this(string.Empty)
         {
         }
+
         public MainWindow(string username)
         {
             InitializeComponent();
@@ -112,7 +114,9 @@ namespace QuanLiTrongTrot
             SidebarContent.Children.Add(CapXa);
 
             SidebarContent.Children.Add(CreateSidebarHeader("Profile", 20));
-            SidebarContent.Children.Add(CreateSidebarButton("Đổi mật khẩu", "DoiMatKhau"));
+            var btnChangePassword = CreateSidebarButton("Đổi mật khẩu", "DoiMatKhau");
+            btnChangePassword.Click += Sidebar_Click;
+            SidebarContent.Children.Add(btnChangePassword);
         }
 
         private void LoadGiongCaySidebar()
@@ -230,52 +234,61 @@ namespace QuanLiTrongTrot
         }
 
         #endregion
+
         #region Trang chủ Events
+
         private void LoadTrangChuContent()
         {
             MainContent.Children.Clear();
             _trangChuView = new TrangChu();
             MainContent.Children.Add(_trangChuView);
-
         }
+
         public void LoadQuanliUser(string os)
         {
             MainContent.Children.Clear();
             _trangchuView = new TrangchuView(os);
             MainContent.Children.Add(_trangchuView);
         }
+
         private void btnLichSuDangNhap(object sender, EventArgs e)
         {
             LoadQuanliUser("QuanliLichSu");
         }
-        private void btnQuanliHanhChinh(object sender, EventArgs e) 
+
+        private void btnQuanliHanhChinh(object sender, EventArgs e)
         {
             LoadQuanliUser("QuanliHanhChinh");
         }
+
         private void btnDonViCapHuyen(object sender, EventArgs e)
         {
             LoadQuanliUser("DonViCaphuyen");
         }
+
         private void btnDonViCapXa(object sender, EventArgs e)
         {
             LoadQuanliUser("DonViCapXa");
         }
+
         private void btnQuanliuser(object sender, RoutedEventArgs e)
         {
-            string[] strings = { _username , "3" };
+            string[] strings = { _username, "3" };
             string[] data_name = { "Ten", "QuyenID" };
-            bool a = DataProvider.CHECK_SAME_ROW_DATA( strings , data_name , "TaiKhoan" );
-            if( a )
+            bool a = DataProvider.CHECK_SAME_ROW_DATA(strings, data_name, "TaiKhoan");
+            if (a)
             {
                 MessageBox.Show("Bạn không có quyền sử dụng tính năng này!", "Thông báo",
-                                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
                 LoadQuanliUser("Quanliuser");
             }
         }
+
         #endregion
+
         #region Giống Cây Events
 
         private void LoadGiongCayContent()
@@ -338,12 +351,20 @@ namespace QuanLiTrongTrot
 
         private void LoadCoSoSanXuatContent()
         {
+            // FIX: There is no CoSoSanXuatView in project.
+            // Existing implementation uses TrangchuView to show table-based data.
             MainContent.Children.Clear();
-            _coSoSanXuatView = new CoSoSanXuatView();
+            _coSoSanXuatView = new TrangchuView("QuanliHanhChinh");
             MainContent.Children.Add(_coSoSanXuatView);
         }
 
-        private void BtnDanhMucCoSo_Click(object sender, RoutedEventArgs e) => _coSoSanXuatView?.LoadCoSoVietGap();
+        private void BtnDanhMucCoSo_Click(object sender, RoutedEventArgs e)
+        {
+            // FIX: CoSoSanXuatView.LoadCoSoVietGap() doesn't exist. Use the existing TrangchuView.
+            // NOTE: TrangchuView currently supports "QuanliLichSu", "QuanliHanhChinh", "DonViCaphuyen", "DonViCapXa", "Quanliuser".
+            // If you want to load CS_VG, you must implement it in TrangchuView first.
+            LoadQuanliUser("QuanliHanhChinh");
+        }
 
         #endregion
 
@@ -362,21 +383,20 @@ namespace QuanLiTrongTrot
 
         #endregion
 
-        
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Bạn có chắc muốn đăng xuất?", "Xác nhận",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 new LoginWindow().Show();
-                this.Close();
+                Close();
             }
         }
 
         private void Sidebar_Click(object sender, RoutedEventArgs e)
         {
-
+            ChangePasswordWindow changePasswordWindow = new ChangePasswordWindow(_username);
+            changePasswordWindow.ShowDialog();
         }
     }
 }
-

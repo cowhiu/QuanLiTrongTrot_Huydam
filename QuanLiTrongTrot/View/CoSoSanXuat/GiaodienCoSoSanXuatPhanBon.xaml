@@ -3,154 +3,370 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:QuanLiTrongTrot.View.CoSoSanXuat"
              mc:Ignorable="d"
-             d:DesignHeight="650" d:DesignWidth="1200">
+             d:DesignHeight="650" d:DesignWidth="1100">
 
-    <Grid Background="#F3F4F6" Margin="12">
+    <Grid Background="#F3F6F7" Margin="14">
+        <Grid.Resources>
+            <SolidColorBrush x:Key="BrushText" Color="#0F172A"/>
+            <SolidColorBrush x:Key="BrushSubText" Color="#64748B"/>
+            <SolidColorBrush x:Key="BrushBorder" Color="#DCE3E7"/>
+            <SolidColorBrush x:Key="BrushCard" Color="White"/>
+
+            <SolidColorBrush x:Key="BrushGreen" Color="#2E7D32"/>
+            <SolidColorBrush x:Key="BrushGreenSoft" Color="#E8F5E9"/>
+            <SolidColorBrush x:Key="BrushOrange" Color="#FF6A2B"/>
+            <SolidColorBrush x:Key="BrushOrangeSoft" Color="#FFF3E9"/>
+
+            <Style x:Key="Card" TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource BrushCard}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource BrushBorder}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CornerRadius" Value="14"/>
+                <Setter Property="Padding" Value="14"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="18" ShadowDepth="2" Opacity="0.12"/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="Title" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="{StaticResource BrushText}"/>
+            </Style>
+
+            <Style x:Key="SectionTitle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Foreground" Value="{StaticResource BrushText}"/>
+            </Style>
+
+            <Style x:Key="Label" TargetType="TextBlock">
+                <Setter Property="Margin" Value="0,12,0,6"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Foreground" Value="#334155"/>
+            </Style>
+
+            <Style x:Key="Input" TargetType="TextBox">
+                <Setter Property="Height" Value="36"/>
+                <Setter Property="Padding" Value="10,0"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="BorderBrush" Value="#CBD5E1"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Background" Value="#FFFFFF"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border CornerRadius="10"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ScrollViewer x:Name="PART_ContentHost" Margin="0"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsKeyboardFocused" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource BrushGreen}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="Select" TargetType="ComboBox">
+                <Setter Property="Height" Value="36"/>
+                <Setter Property="Padding" Value="10,0"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="BorderBrush" Value="#CBD5E1"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Background" Value="#FFFFFF"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBox">
+                            <Grid>
+                                <Border CornerRadius="10"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                    <DockPanel>
+                                        <ContentPresenter Margin="10,0,32,0"
+                                                          VerticalAlignment="Center"
+                                                          Content="{TemplateBinding SelectionBoxItem}"/>
+                                    </DockPanel>
+                                </Border>
+
+                                <Path HorizontalAlignment="Right" Margin="0,0,12,0" VerticalAlignment="Center"
+                                      Fill="#64748B" Data="M 0 0 L 4 4 L 8 0 Z"/>
+
+                                <ToggleButton Opacity="0"
+                                              IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+
+                                <Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" AllowsTransparency="True">
+                                    <Border CornerRadius="10" Background="White" BorderBrush="#CBD5E1" BorderThickness="1" Margin="0,6,0,0">
+                                        <ScrollViewer MaxHeight="220">
+                                            <ItemsPresenter/>
+                                        </ScrollViewer>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsKeyboardFocused" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource BrushGreen}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="BtnBase" TargetType="Button">
+                <Setter Property="Height" Value="38"/>
+                <Setter Property="MinWidth" Value="92"/>
+                <Setter Property="Padding" Value="14,8"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="bd"
+                                    CornerRadius="10"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="bd" Property="Opacity" Value="0.92"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="bd" Property="Opacity" Value="0.85"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="bd" Property="Opacity" Value="0.55"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BtnGreen" TargetType="Button" BasedOn="{StaticResource BtnBase}">
+                <Setter Property="Background" Value="{StaticResource BrushGreen}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Margin" Value="0,0,8,0"/>
+            </Style>
+
+            <Style x:Key="BtnGhost" TargetType="Button" BasedOn="{StaticResource BtnBase}">
+                <Setter Property="Background" Value="#F8FAFC"/>
+                <Setter Property="Foreground" Value="#0F172A"/>
+                <Setter Property="BorderBrush" Value="#CBD5E1"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Margin" Value="0,0,8,0"/>
+            </Style>
+
+            <Style x:Key="BtnDanger" TargetType="Button" BasedOn="{StaticResource BtnBase}">
+                <Setter Property="Background" Value="#DC2626"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Margin" Value="0,0,8,0"/>
+            </Style>
+
+            <Style TargetType="DataGrid">
+                <Setter Property="RowHeaderWidth" Value="0"/>
+                <Setter Property="CanUserAddRows" Value="False"/>
+                <Setter Property="CanUserDeleteRows" Value="False"/>
+                <Setter Property="IsReadOnly" Value="True"/>
+                <Setter Property="HeadersVisibility" Value="Column"/>
+                <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+                <Setter Property="MinRowHeight" Value="36"/>
+                <Setter Property="BorderBrush" Value="#CBD5E1"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="HorizontalGridLinesBrush" Value="#EEF2F7"/>
+            </Style>
+
+            <Style TargetType="DataGridColumnHeader">
+                <Setter Property="Background" Value="#F1F5F9"/>
+                <Setter Property="Foreground" Value="#0F172A"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Height" Value="38"/>
+                <Setter Property="BorderBrush" Value="#E2E8F0"/>
+                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            </Style>
+
+            <Style TargetType="DataGridRow">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#F8FAFC"/>
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="{StaticResource BrushGreenSoft}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="12"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- HEADER -->
-        <StackPanel Grid.Row="0">
-            <TextBlock Text="Quản lý cơ sở sản xuất phân bón"
-                       FontSize="20"
-                       FontWeight="Bold"
-                       Foreground="#111827"/>
-            <TextBlock Text="Quản lý hành chính + tọa độ bản đồ (BandOld) + trạng thái giấy phép"
-                       Margin="0,4,0,0"
-                       Foreground="#6B7280"/>
-        </StackPanel>
-
-        <!-- MAIN -->
-        <Grid Grid.Row="2">
+        <!-- Header -->
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2.2*"/>
-                <ColumnDefinition Width="12"/>
-                <ColumnDefinition Width="1.35*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <!-- LEFT: LIST + DATAGRID -->
-            <Border Grid.Column="0"
-                    CornerRadius="10"
-                    BorderThickness="1"
-                    BorderBrush="#E5E7EB"
-                    Background="White"
-                    Padding="12">
+            <StackPanel>
+                <TextBlock Style="{StaticResource Title}" Text="Danh mục sản phẩm của cơ sở"/>
+                <TextBlock Margin="0,4,0,0"
+                           Foreground="{StaticResource BrushSubText}"
+                           Text="Quản lý năng lực sản xuất và hàng hóa của cơ sở (tên, thành phần, phân loại, sản lượng)."/>
+            </StackPanel>
+
+            <Border Grid.Column="1" CornerRadius="999" Padding="12,6"
+                    Background="{StaticResource BrushOrangeSoft}" BorderBrush="#FFD6BF" BorderThickness="1"
+                    VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="10" Height="10" Fill="{StaticResource BrushOrange}" Margin="0,0,8,0"/>
+                    <TextBlock Foreground="#9A3412" FontWeight="SemiBold"
+                               Text="{Binding TenCoSo, FallbackValue='(Chọn cơ sở để xem)'}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Body -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2.1*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="1.4*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- LEFT -->
+            <Border Grid.Column="0" Style="{StaticResource Card}">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="12"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="12"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Danh sách cơ sở"
-                               FontSize="16"
-                               FontWeight="SemiBold"
-                               Foreground="#111827"/>
+                    <TextBlock Style="{StaticResource SectionTitle}" Text="Danh sách sản phẩm"/>
 
-                    <!-- DataGrid -->
-                    <DataGrid x:Name="dgCoSo"
-                              Grid.Row="2"
-                              SelectionChanged="DataGrid_SelectionChanged"
-                              AutoGenerateColumns="False"
-                              IsReadOnly="True"
-                              CanUserAddRows="False"
-                              CanUserDeleteRows="False"
-                              RowHeaderWidth="0"
-                              HeadersVisibility="Column"
-                              GridLinesVisibility="Horizontal"
-                              MinRowHeight="34"
-                              Background="White"
-                              BorderBrush="#E5E7EB"
-                              BorderThickness="1">
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border CornerRadius="12" BorderBrush="#CBD5E1" BorderThickness="1" Background="White">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="36"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Background="#E8F1FF" CornerRadius="12,0,0,12"/>
+                                <TextBlock Grid.Column="0" Text="🔎" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBox Grid.Column="1"
+                                         BorderThickness="0"
+                                         Background="Transparent"
+                                         Height="36"
+                                         Padding="0,0,10,0"
+                                         VerticalContentAlignment="Center"
+                                         Text="{Binding KeywordSanPham, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
+                                         ToolTip="Tìm theo tên sản phẩm / thành phần / phân loại"/>
+                            </Grid>
+                        </Border>
+
+                        <ComboBox Grid.Column="2" Style="{StaticResource Select}"
+                                  SelectedValuePath="Tag"
+                                  SelectedValue="{Binding FilterPhanLoai, FallbackValue={x:Null}}"
+                                  ToolTip="Lọc phân loại">
+                            <ComboBoxItem Content="Tất cả phân loại" Tag="{x:Null}"/>
+                            <ComboBoxItem Content="Vô cơ" Tag="VoCo"/>
+                            <ComboBoxItem Content="Hữu cơ" Tag="HuuCo"/>
+                        </ComboBox>
+                    </Grid>
+
+                    <DataGrid Grid.Row="4"
+                              ItemsSource="{Binding SanPhamView, FallbackValue={x:Null}}"
+                              SelectedItem="{Binding SelectedSanPham, Mode=TwoWay, FallbackValue={x:Null}}"
+                              AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã" Binding="{Binding MaCoSo}" Width="90"/>
-                            <DataGridTextColumn Header="Tên cơ sở" Binding="{Binding TenCoSo}" Width="*"/>
-                            <DataGridTextColumn Header="Địa chỉ" Binding="{Binding DiaChi}" Width="*"/>
-                            <DataGridTextColumn Header="Người đại diện" Binding="{Binding NguoiDaiDien}" Width="160"/>
-                            <DataGridTextColumn Header="SĐT" Binding="{Binding SoDienThoai}" Width="130"/>
-                            <DataGridTextColumn Header="Trạng thái" Binding="{Binding TrangThaiGiayPhep}" Width="140"/>
-                            <DataGridTextColumn Header="Lat" Binding="{Binding Lat}" Width="90"/>
-                            <DataGridTextColumn Header="Lng" Binding="{Binding Lng}" Width="90"/>
+                            <DataGridTextColumn Header="Mã" Binding="{Binding Id}" Width="90"/>
+                            <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding TenSanPham}" Width="*"/>
+                            <DataGridTextColumn Header="Thành phần" Binding="{Binding ThanhPhan}" Width="*"/>
+                            <DataGridTextColumn Header="Phân loại" Binding="{Binding PhanLoai}" Width="120"/>
+                            <DataGridTextColumn Header="Sản lượng (tấn/năm)" Binding="{Binding SanLuongTanNam}" Width="160"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </Border>
 
-            <!-- RIGHT: DETAIL FORM -->
-            <Border Grid.Column="2"
-                    CornerRadius="10"
-                    BorderThickness="1"
-                    BorderBrush="#E5E7EB"
-                    Background="White"
-                    Padding="12">
+            <!-- RIGHT -->
+            <Border Grid.Column="2" Style="{StaticResource Card}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="12"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="12"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <StackPanel>
-                        <TextBlock Text="Hồ sơ cơ sở (Nhà máy)"
-                                   FontSize="16"
-                                   FontWeight="SemiBold"
-                                   Foreground="#111827"/>
-                        <TextBlock Text="Nhập/chỉnh sửa thông tin để quản lý hành chính và định vị trên bản đồ"
-                                   Margin="0,4,0,0"
-                                   Foreground="#6B7280"
-                                   TextWrapping="Wrap"/>
+                        <TextBlock Style="{StaticResource SectionTitle}" Text="Thông tin sản phẩm"/>
+                        <TextBlock Margin="0,4,0,0" Foreground="{StaticResource BrushSubText}" TextWrapping="Wrap"
+                                   Text="Nhập dữ liệu sản phẩm của cơ sở. Backend bạn sẽ nối vào nút Lưu/Xóa."/>
                     </StackPanel>
 
                     <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
                         <StackPanel>
-                            <TextBlock Text="Mã cơ sở" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
-                            <TextBox x:Name="txtMaCoSo" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
+                            <TextBlock Style="{StaticResource Label}" Text="Tên sản phẩm"/>
+                            <TextBox Style="{StaticResource Input}"
+                                     Text="{Binding TenSanPham, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
+                                     ToolTip="VD: NPK 20-20-15"/>
 
-                            <TextBlock Text="Tên cơ sở" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
-                            <TextBox x:Name="txtTenCoSo" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
+                            <TextBlock Style="{StaticResource Label}" Text="Thành phần"/>
+                            <TextBox Style="{StaticResource Input}"
+                                     Text="{Binding ThanhPhan, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
+                                     ToolTip="VD: Đạm, Lân, Kali"/>
 
-                            <TextBlock Text="Địa chỉ" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
-                            <TextBox x:Name="txtDiaChi" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
-
-                            <TextBlock Text="Người đại diện" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
-                            <TextBox x:Name="txtNguoiDaiDien" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
-
-                            <TextBlock Text="Số điện thoại (SĐT)" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
-                            <TextBox x:Name="txtSDT" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
-
-                            <TextBlock Text="Tọa độ (BandOld)" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="10"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <TextBox x:Name="txtLat" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
-                                <TextBox x:Name="txtLng" Grid.Column="2" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
-                            </Grid>
-
-                            <TextBlock Text="Trạng thái giấy phép" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
-                            <ComboBox x:Name="cbTrangThai" Height="34" VerticalContentAlignment="Center">
-                                <ComboBoxItem Content="Đang hoạt động"/>
-                                <ComboBoxItem Content="Đình chỉ"/>
+                            <TextBlock Style="{StaticResource Label}" Text="Phân loại"/>
+                            <ComboBox Style="{StaticResource Select}"
+                                      SelectedValuePath="Tag"
+                                      SelectedValue="{Binding PhanLoai, UpdateSourceTrigger=PropertyChanged, FallbackValue=VoCo}">
+                                <ComboBoxItem Content="Vô cơ" Tag="VoCo"/>
+                                <ComboBoxItem Content="Hữu cơ" Tag="HuuCo"/>
                             </ComboBox>
+
+                            <TextBlock Style="{StaticResource Label}" Text="Công suất / Sản lượng (tấn/năm)"/>
+                            <TextBox Style="{StaticResource Input}"
+                                     Text="{Binding SanLuongTanNam, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
+                                     ToolTip="VD: 5000"/>
                         </StackPanel>
                     </ScrollViewer>
 
-                    <!-- Buttons -->
                     <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Content="Tạo mới" Margin="0,0,8,0" Padding="14,8" MinWidth="90" Click="BtnTaoMoi_Click"/>
-                        <Button Content="Lưu" Margin="0,0,8,0" Padding="14,8" MinWidth="70" Click="BtnLuu_Click"/>
-                        <Button Content="Xóa" Margin="0,0,8,0" Padding="14,8" MinWidth="70" Click="BtnXoa_Click"/>
-                        <Button Content="Bỏ chọn" Padding="14,8" MinWidth="80" Click="BtnBoChon_Click"/>
+                        <Button Style="{StaticResource BtnGhost}" Content="Tạo mới" Command="{Binding NewSanPhamCommand}"/>
+                        <Button Style="{StaticResource BtnGreen}" Content="Lưu" Command="{Binding SaveSanPhamCommand}"/>
+                        <Button Style="{StaticResource BtnDanger}" Content="Xóa" Command="{Binding DeleteSanPhamCommand}"/>
+                        <Button Style="{StaticResource BtnGhost}" Content="Đóng" Margin="0"/>
                     </StackPanel>
                 </Grid>
             </Border>
