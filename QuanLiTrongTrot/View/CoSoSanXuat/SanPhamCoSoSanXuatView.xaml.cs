@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 
 namespace QuanLiTrongTrot.View.CoSoSanXuat
 {
-    /// <summary>
-    /// Interaction logic for SanPhamCoSoSanXuatView.xaml
-    /// </summary>
     public partial class SanPhamCoSoSanXuatView : UserControl
     {
-        public SanPhamCoSoSanXuatView()
+        private CoSoSanXuatPhanBonModel _coso;
+        public SanPhamCoSoSanXuatView(CoSoSanXuatPhanBonModel coSo)
         {
             InitializeComponent();
+            _coso = coSo;
         }
+
     }
 }

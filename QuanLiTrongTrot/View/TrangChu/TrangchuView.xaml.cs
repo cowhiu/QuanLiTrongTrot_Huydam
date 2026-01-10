@@ -24,17 +24,8 @@ namespace QuanLiTrongTrot.View.TrangChu
         {
             InitializeComponent();
             switch (os) {
-                case "QuanliLichSu":
-                    LoadLichSu();
-                    break;
                 case "QuanliHanhChinh":
                     LoadHanhChinh();
-                    break;
-                case "DonViCaphuyen":
-                    LoadHuyen();
-                    break;
-                case "DonViCapXa":
-                    LoadXa();
                     break;
                 case "Quanliuser":
                     LoadUser();
@@ -79,71 +70,15 @@ namespace QuanLiTrongTrot.View.TrangChu
             try
             {
                 _isLoading = true;
-                _currentTable = "HanhChinh";
+                _currentTable = "Tinh";
                 txtTitle.Text = "Đơn vị Hành Chính";
                 txtSearch.Text = "";
 
                 dgTrangChu.ItemsSource = null;
 
                 dgTrangChu.Columns.Clear();
-                dgTrangChu.Columns.Add(new DataGridTextColumn { Header = "Tỉnh/Thành", Binding = new System.Windows.Data.Binding("Ten"), Width = 250 });
-                dgTrangChu.Columns.Add(new DataGridTextColumn { Header = "Trực thuộc", Binding = new System.Windows.Data.Binding("TrucThuocId"), Width = 300 });
-
-                string query = $"SELECT * FROM {_currentTable}";
-                _currentData = DataProvider.ExecuteQuery(query);
-
-                dgTrangChu.ItemsSource = _currentData.DefaultView;
-                txtTongSo.Text = _currentData.Rows.Count.ToString();
-                _isLoading = false;
-            }
-            catch (Exception ex)
-            {
-                _isLoading = false;
-                MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-        public void LoadHuyen()
-        {
-            try
-            {
-                _isLoading = true;
-                _currentTable = "Huyen";
-                txtTitle.Text = "Danh sách các Huyện trong khu vực của bạn";
-                txtSearch.Text = "";
-
-                dgTrangChu.ItemsSource = null;
-
-                dgTrangChu.Columns.Clear();
-                dgTrangChu.Columns.Add(new DataGridTextColumn { Header = "Tài Khoản", Binding = new System.Windows.Data.Binding("Ten"), Width = 250 });
-                dgTrangChu.Columns.Add(new DataGridTextColumn { Header = "Thời gian", Binding = new System.Windows.Data.Binding("ThoiGian"), Width = 300 });
-
-                string query = $"SELECT * FROM {_currentTable}";
-                _currentData = DataProvider.ExecuteQuery(query);
-
-                dgTrangChu.ItemsSource = _currentData.DefaultView;
-                txtTongSo.Text = _currentData.Rows.Count.ToString();
-                _isLoading = false;
-            }
-            catch (Exception ex)
-            {
-                _isLoading = false;
-                MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-        public void LoadXa()
-        {
-            try
-            {
-                _isLoading = true;
-                _currentTable = "Xa";
-                txtTitle.Text = "Danh sách các Xã trong khu vực của bạn";
-                txtSearch.Text = "";
-
-                dgTrangChu.ItemsSource = null;
-
-                dgTrangChu.Columns.Clear();
-                dgTrangChu.Columns.Add(new DataGridTextColumn { Header = "Tài Khoản", Binding = new System.Windows.Data.Binding("Ten"), Width = 250 });
-                dgTrangChu.Columns.Add(new DataGridTextColumn { Header = "Thời gian", Binding = new System.Windows.Data.Binding("ThoiGian"), Width = 300 });
+                dgTrangChu.Columns.Add(new DataGridTextColumn { Header = "Mã Vùng", Binding = new System.Windows.Data.Binding("MaVung"), Width = 250 });
+                dgTrangChu.Columns.Add(new DataGridTextColumn { Header = "Tên Tỉnh/Thành", Binding = new System.Windows.Data.Binding("Ten"), Width = 300 });
 
                 string query = $"SELECT * FROM {_currentTable}";
                 _currentData = DataProvider.ExecuteQuery(query);
@@ -196,14 +131,11 @@ namespace QuanLiTrongTrot.View.TrangChu
                 case "QuanliHanhChinh":
                     LoadHanhChinh();
                     break;
-                case "Huyen":
-                    LoadHuyen();
-                    break;
-                case "Xa":
-                    LoadXa();
-                    break;
                 case "TaiKhoan":
                     LoadUser();
+                    break;
+                case "Xa":
+                    LoadXa(dgTrangChu.SelectedItem.ToString());
                     break;
             }
             if (_currentTable != "TaiKhoan")
@@ -272,7 +204,41 @@ namespace QuanLiTrongTrot.View.TrangChu
 
         private void BtnThemMoi_Click(object sender, RoutedEventArgs e)
         {
+            
 
+        }
+        private void Xa(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var selectedRow = dgTrangChu.SelectedItem as DataRowView;
+            string tenHienThi = "";
+            _currentTable = "Xa";
+            tenHienThi = selectedRow["Ten"].ToString();
+            LoadXa(tenHienThi); 
+        }
+        private void LoadXa(string os) {
+            try
+            {
+                _isLoading = true;
+                txtTitle.Text = $"Danh sách Xã của {os}";
+                txtSearch.Text = "";
+
+                dgTrangChu.ItemsSource = null;
+
+                dgTrangChu.Columns.Clear();
+                dgTrangChu.Columns.Add(new DataGridTextColumn { Header = "STT", Binding = new System.Windows.Data.Binding("STT"), Width = 250 });
+                dgTrangChu.Columns.Add(new DataGridTextColumn { Header = "Tên Xã", Binding = new System.Windows.Data.Binding("Ten"), Width = 300 });
+
+                string query = $"SELECT * FROM {_currentTable} WHERE Tinh LIKE N'%{os}%'";
+                _currentData = DataProvider.ExecuteQuery(query);
+                dgTrangChu.ItemsSource = _currentData.DefaultView;
+                txtTongSo.Text = _currentData.Rows.Count.ToString();
+                _isLoading = false;
+            }
+            catch (Exception ex)
+            {
+                _isLoading = false;
+                MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)

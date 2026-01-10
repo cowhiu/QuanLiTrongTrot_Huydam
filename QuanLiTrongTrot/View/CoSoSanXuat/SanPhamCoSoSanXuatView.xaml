@@ -304,7 +304,8 @@
                     <DataGrid Grid.Row="4"
                               ItemsSource="{Binding SanPhamView, FallbackValue={x:Null}}"
                               SelectedItem="{Binding SelectedSanPham, Mode=TwoWay, FallbackValue={x:Null}}"
-                              AutoGenerateColumns="False">
+                              AutoGenerateColumns="False"
+                              x:Name="dgSPCS">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Mã" Binding="{Binding Id}" Width="90"/>
                             <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding TenSanPham}" Width="*"/>

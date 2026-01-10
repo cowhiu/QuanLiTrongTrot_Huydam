@@ -22,7 +22,7 @@ namespace QuanLiTrongTrot
         private ThuocBVTVView _thuocBVTVView;
         private PhanBonView _phanBonView;
         private VungTrongView _vungTrongView;
-        private CoSoSanXuatView _coSoSanXuatView;
+        private GiaodienCoSoSanXuatPhanBon _coSoSanXuatView;
         private SinhVatGayHaiView _sinhVatGayHaiView;
         private TrangChu _trangChuView;
         private TrangchuView _trangchuView;
@@ -102,14 +102,6 @@ namespace QuanLiTrongTrot
             var btnHanhChinh = CreateSidebarButton("Quản lý hành chính", "QuanLyHanhChinh");
             btnHanhChinh.Click += btnQuanliHanhChinh;
             SidebarContent.Children.Add(btnHanhChinh);
-
-            var CapHuyen = CreateSidebarButton("Đơn vị cấp huyện", "DonViCapHuyen");
-            CapHuyen.Click += btnDonViCapHuyen;
-            SidebarContent.Children.Add(CapHuyen);
-
-            var CapXa = CreateSidebarButton("Đơn vị cấp xã", "DonViCapXa");
-            CapXa.Click += btnDonViCapXa;
-            SidebarContent.Children.Add(CapXa);
 
             SidebarContent.Children.Add(CreateSidebarHeader("Profile", 20));
             var btnChangePassword = CreateSidebarButton("Đổi mật khẩu", "DoiMatKhau");
@@ -341,11 +333,11 @@ namespace QuanLiTrongTrot
         private void LoadCoSoSanXuatContent()
         {
             MainContent.Children.Clear();
-            _coSoSanXuatView = new CoSoSanXuatView();
+            _coSoSanXuatView = new GiaodienCoSoSanXuatPhanBon();
             MainContent.Children.Add(_coSoSanXuatView);
         }
 
-        private void BtnDanhMucCoSo_Click(object sender, RoutedEventArgs e) => _coSoSanXuatView?.LoadCoSoVietGap();
+        private void BtnDanhMucCoSo_Click(object sender, RoutedEventArgs e) => _coSoSanXuatView?.LoadDuLieuMau();
 
         #endregion
 

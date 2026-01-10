@@ -1,15 +1,19 @@
-﻿using System;
+﻿using QuanLiTrongTrot.Model;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace QuanLiTrongTrot.View.CoSoSanXuat
 {
     public partial class GiaodienCoSoSanXuatPhanBon : UserControl
     {
         // “Database” giả
-        private List<CoSoSanXuatPhanBonModel> _dsCoSo =
-            new List<CoSoSanXuatPhanBonModel>();
+        private string _currentTable;
+        private DataTable _currentData;
+        private bool _isLoading = false;
 
         private CoSoSanXuatPhanBonModel _coSoDangChon = null;
 
@@ -17,35 +21,13 @@ namespace QuanLiTrongTrot.View.CoSoSanXuat
         {
             InitializeComponent();
             LoadDuLieuMau();
-            dgCoSo.ItemsSource = _dsCoSo;
+            dgCoSo.ItemsSource = null;
         }
 
         // ================== DỮ LIỆU MẪU ==================
-        private void LoadDuLieuMau()
+        public void LoadDuLieuMau()
         {
-            _dsCoSo.Add(new CoSoSanXuatPhanBonModel
-            {
-                MaCoSo = "CS01",
-                TenCoSo = "Nhà máy Phân bón Bình Điền II",
-                DiaChi = "KCN Sóng Thần, Bình Dương",
-                NguoiDaiDien = "Nguyễn Văn A",
-                SoDienThoai = "0901234567",
-                Lat = 10.889,
-                Lng = 106.755,
-                TrangThaiGiayPhep = "Đang hoạt động"
-            });
-
-            _dsCoSo.Add(new CoSoSanXuatPhanBonModel
-            {
-                MaCoSo = "CS02",
-                TenCoSo = "Nhà máy Phân bón Miền Tây",
-                DiaChi = "Cần Thơ",
-                NguoiDaiDien = "Trần Văn B",
-                SoDienThoai = "0912345678",
-                Lat = 10.045,
-                Lng = 105.746,
-                TrangThaiGiayPhep = "Đình chỉ"
-            });
+            
         }
 
         // ================== DATAGRID CLICK ==================
@@ -53,7 +35,6 @@ namespace QuanLiTrongTrot.View.CoSoSanXuat
         {
             _coSoDangChon = dgCoSo.SelectedItem as CoSoSanXuatPhanBonModel;
             if (_coSoDangChon == null) return;
-
             txtMaCoSo.Text = _coSoDangChon.MaCoSo;
             txtTenCoSo.Text = _coSoDangChon.TenCoSo;
             txtDiaChi.Text = _coSoDangChon.DiaChi;
@@ -62,6 +43,34 @@ namespace QuanLiTrongTrot.View.CoSoSanXuat
             txtLat.Text = _coSoDangChon.Lat.ToString();
             txtLng.Text = _coSoDangChon.Lng.ToString();
             cbTrangThai.Text = _coSoDangChon.TrangThaiGiayPhep;
+        }
+
+        private void btnSanPhamCoso(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var coSo = dgCoSo.SelectedItem as CoSoSanXuatPhanBonModel;
+            if (coSo == null)
+            {
+                MessageBox.Show("Vui lòng chọn một cơ sở trước.");
+                return;
+            }
+
+            if (Coso == null)
+            {
+                MessageBox.Show("Không tìm thấy vùng hiển thị (Coso). Vui lòng kiểm tra lại XAML.");
+                return;
+            }
+
+            // Ẩn UI hiện tại (coi như clear) và hiển thị vùng điều hướng
+            if (RootContent != null)
+                RootContent.Visibility = Visibility.Collapsed;
+
+            Coso.Visibility = Visibility.Visible;
+
+            // Clear content cũ
+            Coso.Content = null;
+
+            var uc = new SanPhamCoSoSanXuatView(coSo);
+            Coso.Content = uc;
         }
 
         // ================== TẠO MỚI ==================
@@ -95,7 +104,7 @@ namespace QuanLiTrongTrot.View.CoSoSanXuat
                     TrangThaiGiayPhep = cbTrangThai.Text
                 };
 
-                _dsCoSo.Add(cs);
+             
             }
             else
             {
@@ -123,7 +132,6 @@ namespace QuanLiTrongTrot.View.CoSoSanXuat
             if (MessageBox.Show("Xóa cơ sở này?", "Xác nhận",
                 MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                _dsCoSo.Remove(_coSoDangChon);
                 dgCoSo.Items.Refresh();
                 ClearForm();
             }

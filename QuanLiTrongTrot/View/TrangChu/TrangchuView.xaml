@@ -64,7 +64,8 @@
       BorderBrush="#E0E0E0"
       RowHeight="40"
       SelectionMode="Single"
-      Background="White" Grid.ColumnSpan="2" Margin="0,48,0,47" Grid.RowSpan="3">
+      Background="White" Grid.ColumnSpan="2" Margin="0,48,0,47" Grid.RowSpan="3"
+      MouseDoubleClick="Xa">
 
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
@@ -80,7 +81,7 @@
         </DataGrid>
 
         <!-- FOOTER -->
-        <Grid Grid.Row="2" Margin="0,10,0,0" Grid.ColumnSpan="2">
+        <Grid x:Name="Main1" Grid.Row="2" Margin="0,10,0,0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>

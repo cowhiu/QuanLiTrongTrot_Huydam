@@ -14,146 +14,159 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- HEADER -->
-        <StackPanel Grid.Row="0">
-            <TextBlock Text="Quản lý cơ sở sản xuất phân bón"
-                       FontSize="20"
-                       FontWeight="Bold"
-                       Foreground="#111827"/>
-            <TextBlock Text="Quản lý hành chính + tọa độ bản đồ (BandOld) + trạng thái giấy phép"
-                       Margin="0,4,0,0"
-                       Foreground="#6B7280"/>
-        </StackPanel>
+        <!-- UI hiện tại của UserControl -->
+        <Grid x:Name="RootContent" Grid.RowSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="12"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <!-- MAIN -->
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2.2*"/>
-                <ColumnDefinition Width="12"/>
-                <ColumnDefinition Width="1.35*"/>
-            </Grid.ColumnDefinitions>
+            <!-- HEADER -->
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="Quản lý cơ sở sản xuất phân bón"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="#111827"/>
+                <TextBlock Text="Quản lý hành chính + tọa độ bản đồ + trạng thái giấy phép"
+                           Margin="0,4,0,0"
+                           Foreground="#6B7280"/>
+            </StackPanel>
 
-            <!-- LEFT: LIST + DATAGRID -->
-            <Border Grid.Column="0"
-                    CornerRadius="10"
-                    BorderThickness="1"
-                    BorderBrush="#E5E7EB"
-                    Background="White"
-                    Padding="12">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="12"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+            <!-- MAIN -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2.2*"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="1.35*"/>
+                </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="Danh sách cơ sở"
-                               FontSize="16"
-                               FontWeight="SemiBold"
-                               Foreground="#111827"/>
+                <!-- LEFT: LIST + DATAGRID -->
+                <Border Grid.Column="0"
+                        CornerRadius="10"
+                        BorderThickness="1"
+                        BorderBrush="#E5E7EB"
+                        Background="White"
+                        Padding="12">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                    <!-- DataGrid -->
-                    <DataGrid x:Name="dgCoSo"
-                              Grid.Row="2"
-                              SelectionChanged="DataGrid_SelectionChanged"
-                              AutoGenerateColumns="False"
-                              IsReadOnly="True"
-                              CanUserAddRows="False"
-                              CanUserDeleteRows="False"
-                              RowHeaderWidth="0"
-                              HeadersVisibility="Column"
-                              GridLinesVisibility="Horizontal"
-                              MinRowHeight="34"
-                              Background="White"
-                              BorderBrush="#E5E7EB"
-                              BorderThickness="1">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã" Binding="{Binding MaCoSo}" Width="90"/>
-                            <DataGridTextColumn Header="Tên cơ sở" Binding="{Binding TenCoSo}" Width="*"/>
-                            <DataGridTextColumn Header="Địa chỉ" Binding="{Binding DiaChi}" Width="*"/>
-                            <DataGridTextColumn Header="Người đại diện" Binding="{Binding NguoiDaiDien}" Width="160"/>
-                            <DataGridTextColumn Header="SĐT" Binding="{Binding SoDienThoai}" Width="130"/>
-                            <DataGridTextColumn Header="Trạng thái" Binding="{Binding TrangThaiGiayPhep}" Width="140"/>
-                            <DataGridTextColumn Header="Lat" Binding="{Binding Lat}" Width="90"/>
-                            <DataGridTextColumn Header="Lng" Binding="{Binding Lng}" Width="90"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </Border>
-
-            <!-- RIGHT: DETAIL FORM -->
-            <Border Grid.Column="2"
-                    CornerRadius="10"
-                    BorderThickness="1"
-                    BorderBrush="#E5E7EB"
-                    Background="White"
-                    Padding="12">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="10"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="12"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <StackPanel>
-                        <TextBlock Text="Hồ sơ cơ sở (Nhà máy)"
+                        <TextBlock Text="Danh sách cơ sở"
                                    FontSize="16"
                                    FontWeight="SemiBold"
                                    Foreground="#111827"/>
-                        <TextBlock Text="Nhập/chỉnh sửa thông tin để quản lý hành chính và định vị trên bản đồ"
-                                   Margin="0,4,0,0"
-                                   Foreground="#6B7280"
-                                   TextWrapping="Wrap"/>
-                    </StackPanel>
 
-                    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                        <!-- DataGrid -->
+                        <DataGrid x:Name="dgCoSo"
+                                  Grid.Row="2"
+                                  SelectionChanged="DataGrid_SelectionChanged"
+                                  MouseDoubleClick="btnSanPhamCoso"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False"
+                                  RowHeaderWidth="0"
+                                  HeadersVisibility="Column"
+                                  GridLinesVisibility="Horizontal"
+                                  MinRowHeight="34"
+                                  Background="White"
+                                  BorderBrush="#E5E7EB"
+                                  BorderThickness="1">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Mã" Binding="{Binding Id}" Width="90"/>
+                                <DataGridTextColumn Header="Tên cơ sở" Binding="{Binding TenCoSo}" Width="*"/>
+                                <DataGridTextColumn Header="Địa chỉ" Binding="{Binding DiaChi}" Width="*"/>
+                                <DataGridTextColumn Header="Người đại diện" Binding="{Binding NguoiDaiDien}" Width="160"/>
+                                <DataGridTextColumn Header="SĐT" Binding="{Binding SoDienThoai}" Width="130"/>
+                                <DataGridTextColumn Header="Trạng thái" Binding="{Binding TrangThaiGiayPhep}" Width="140"/>
+                                <DataGridTextColumn Header="Lat" Binding="{Binding Lat}" Width="90"/>
+                                <DataGridTextColumn Header="Lng" Binding="{Binding Lng}" Width="90"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+
+                <!-- RIGHT: DETAIL FORM -->
+                <Border Grid.Column="2"
+                        CornerRadius="10"
+                        BorderThickness="1"
+                        BorderBrush="#E5E7EB"
+                        Background="White"
+                        Padding="12">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
                         <StackPanel>
-                            <TextBlock Text="Mã cơ sở" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
-                            <TextBox x:Name="txtMaCoSo" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
-
-                            <TextBlock Text="Tên cơ sở" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
-                            <TextBox x:Name="txtTenCoSo" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
-
-                            <TextBlock Text="Địa chỉ" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
-                            <TextBox x:Name="txtDiaChi" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
-
-                            <TextBlock Text="Người đại diện" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
-                            <TextBox x:Name="txtNguoiDaiDien" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
-
-                            <TextBlock Text="Số điện thoại (SĐT)" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
-                            <TextBox x:Name="txtSDT" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
-
-                            <TextBlock Text="Tọa độ (BandOld)" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="10"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <TextBox x:Name="txtLat" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
-                                <TextBox x:Name="txtLng" Grid.Column="2" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
-                            </Grid>
-
-                            <TextBlock Text="Trạng thái giấy phép" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
-                            <ComboBox x:Name="cbTrangThai" Height="34" VerticalContentAlignment="Center">
-                                <ComboBoxItem Content="Đang hoạt động"/>
-                                <ComboBoxItem Content="Đình chỉ"/>
-                            </ComboBox>
+                            <TextBlock Text="Hồ sơ cơ sở (Nhà máy)"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Foreground="#111827"/>
+                            <TextBlock Text="Nhập/chỉnh sửa thông tin để quản lý hành chính và định vị trên bản đồ"
+                                       Margin="0,4,0,0"
+                                       Foreground="#6B7280"
+                                       TextWrapping="Wrap"/>
                         </StackPanel>
-                    </ScrollViewer>
 
-                    <!-- Buttons -->
-                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Content="Tạo mới" Margin="0,0,8,0" Padding="14,8" MinWidth="90" Click="BtnTaoMoi_Click"/>
-                        <Button Content="Lưu" Margin="0,0,8,0" Padding="14,8" MinWidth="70" Click="BtnLuu_Click"/>
-                        <Button Content="Xóa" Margin="0,0,8,0" Padding="14,8" MinWidth="70" Click="BtnXoa_Click"/>
-                        <Button Content="Bỏ chọn" Padding="14,8" MinWidth="80" Click="BtnBoChon_Click"/>
-                    </StackPanel>
-                </Grid>
-            </Border>
+                        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                            <StackPanel>
+                                <TextBlock Text="Mã cơ sở" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
+                                <TextBox x:Name="txtMaCoSo" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
+
+                                <TextBlock Text="Tên cơ sở" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
+                                <TextBox x:Name="txtTenCoSo" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
+
+                                <TextBlock Text="Địa chỉ" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
+                                <TextBox x:Name="txtDiaChi" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
+
+                                <TextBlock Text="Người đại diện" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
+                                <TextBox x:Name="txtNguoiDaiDien" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
+
+                                <TextBlock Text="Số điện thoại (SĐT)" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
+                                <TextBox x:Name="txtSDT" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
+
+                                <TextBlock Text="Tọa độ (BandOld)" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox x:Name="txtLat" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
+                                    <TextBox x:Name="txtLng" Grid.Column="2" Height="34" Padding="10,0" VerticalContentAlignment="Center"/>
+                                </Grid>
+
+                                <TextBlock Text="Trạng thái giấy phép" Margin="0,12,0,6" Foreground="#374151" FontWeight="SemiBold"/>
+                                <ComboBox x:Name="cbTrangThai" Height="34" VerticalContentAlignment="Center">
+                                    <ComboBoxItem Content="Đang hoạt động"/>
+                                    <ComboBoxItem Content="Đình chỉ"/>
+                                </ComboBox>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <!-- Buttons -->
+                        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Content="Tạo mới" Margin="0,0,8,0" Padding="14,8" MinWidth="90" Click="BtnTaoMoi_Click"/>
+                            <Button Content="Lưu" Margin="0,0,8,0" Padding="14,8" MinWidth="70" Click="BtnLuu_Click"/>
+                            <Button Content="Xóa" Margin="0,0,8,0" Padding="14,8" MinWidth="70" Click="BtnXoa_Click"/>
+                            <Button Content="Bỏ chọn" Padding="14,8" MinWidth="80" Click="BtnBoChon_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
         </Grid>
+
+        <!-- vùng điều hướng: hiển thị view khác và che UI hiện tại -->
+        <ContentControl x:Name="Coso" Grid.RowSpan="3" Visibility="Collapsed"/>
     </Grid>
 </UserControl>
