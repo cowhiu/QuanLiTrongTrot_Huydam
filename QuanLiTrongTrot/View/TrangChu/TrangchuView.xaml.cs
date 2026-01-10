@@ -16,6 +16,7 @@ namespace QuanLiTrongTrot.View.TrangChu
 {
     public partial class TrangchuView : UserControl
     {
+        private string tenHienThi = "";
         private string _currentTable = "";
         private DataTable _currentData;
         private bool _isLoading = false;
@@ -31,40 +32,12 @@ namespace QuanLiTrongTrot.View.TrangChu
                     LoadUser();
                     break;
             }
-            if (_currentTable != "TaiKhoan")
+            if (_currentTable != "TaiKhoan" && _currentTable != "Xa" )
             {
                 btnXoa.Visibility = Visibility.Collapsed;
             }
         }
         #region Load data
-        public void LoadLichSu()
-        {
-            try
-            {
-                _isLoading = true;
-                _currentTable = "LichSuDangNhap";
-                txtTitle.Text = "Lịch sử đăng nhập";
-                txtSearch.Text = "";
-
-                dgTrangChu.ItemsSource = null;
-
-                dgTrangChu.Columns.Clear();
-                dgTrangChu.Columns.Add(new DataGridTextColumn { Header = "Tài Khoản", Binding = new System.Windows.Data.Binding("Ten"), Width = 250 });
-                dgTrangChu.Columns.Add(new DataGridTextColumn { Header = "Thời gian", Binding = new System.Windows.Data.Binding("ThoiGian"), Width = 300 });
-
-                string query = $"SELECT * FROM {_currentTable}";
-                _currentData = DataProvider.ExecuteQuery(query);
-
-                dgTrangChu.ItemsSource = _currentData.DefaultView;
-                txtTongSo.Text = _currentData.Rows.Count.ToString();
-                _isLoading = false;
-            }
-            catch (Exception ex)
-            {
-                _isLoading = false;
-                MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
         public void LoadHanhChinh()
         {
             try
@@ -125,9 +98,6 @@ namespace QuanLiTrongTrot.View.TrangChu
         {
             switch (_currentTable)
             {
-                case "LichSuDangNhap":
-                    LoadLichSu();
-                    break;
                 case "QuanliHanhChinh":
                     LoadHanhChinh();
                     break;
@@ -135,10 +105,10 @@ namespace QuanLiTrongTrot.View.TrangChu
                     LoadUser();
                     break;
                 case "Xa":
-                    LoadXa(dgTrangChu.SelectedItem.ToString());
+                    LoadXa(tenHienThi);
                     break;
             }
-            if (_currentTable != "TaiKhoan")
+            if (_currentTable != "TaiKhoan" && _currentTable != "Xa")
             {
                 btnXoa.Visibility = Visibility.Collapsed;
             }
@@ -164,9 +134,13 @@ namespace QuanLiTrongTrot.View.TrangChu
             // Lấy tên hiển thị tùy theo bảng
             switch (_currentTable)
             {
-                case "CS_VG":
+                case "TaiKhoan":
                     tenHienThi = selectedRow["Ten"].ToString();
                     break;
+                case "Xa":
+                    tenHienThi = selectedRow["Ten"].ToString();
+                    break;
+
             }
 
             // Xác nhận xóa
@@ -204,20 +178,46 @@ namespace QuanLiTrongTrot.View.TrangChu
 
         private void BtnThemMoi_Click(object sender, RoutedEventArgs e)
         {
-            
+            try
+            {
+                if (_currentTable == "TaiKhoan")
+                {
+                    var w = new AddUserWindow { Owner = Window.GetWindow(this) };
+                    if (w.ShowDialog() == true)
+                        LoadUser();
+                    return;
+                }
 
+                if (_currentTable == "Xa")
+                {
+                    var w = new AddXaWindow { Owner = Window.GetWindow(this) };
+                    if (w.ShowDialog() == true)
+                    {
+                        ReloadCurrentData();
+                    }
+                    return;
+                }
+
+                MessageBox.Show("Chức năng thêm mới cho mục này chưa hỗ trợ.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
         }
+        
         private void Xa(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            if(_currentTable != "Tinh") return;
             var selectedRow = dgTrangChu.SelectedItem as DataRowView;
-            string tenHienThi = "";
             _currentTable = "Xa";
             tenHienThi = selectedRow["Ten"].ToString();
-            LoadXa(tenHienThi); 
+            LoadXa(tenHienThi);
         }
         private void LoadXa(string os) {
             try
             {
+                btnXoa.Visibility = Visibility.Visible;
                 _isLoading = true;
                 txtTitle.Text = $"Danh sách Xã của {os}";
                 txtSearch.Text = "";

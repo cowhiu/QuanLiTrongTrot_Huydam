@@ -94,10 +94,6 @@ namespace QuanLiTrongTrot
             btnQuanliusers.Click += btnQuanliuser;
             SidebarContent.Children.Add(btnQuanliusers);
 
-            var btnQuanlilichsu = CreateSidebarButton("Lịch sử đăng nhập", "LichSuDangNhap");
-            btnQuanlilichsu.Click += btnLichSuDangNhap;
-            SidebarContent.Children.Add(btnQuanlilichsu);
-
             SidebarContent.Children.Add(CreateSidebarHeader("Hành chính", 20));
             var btnHanhChinh = CreateSidebarButton("Quản lý hành chính", "QuanLyHanhChinh");
             btnHanhChinh.Click += btnQuanliHanhChinh;

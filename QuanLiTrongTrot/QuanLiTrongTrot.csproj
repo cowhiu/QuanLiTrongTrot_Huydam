@@ -124,6 +124,12 @@
     <Compile Include="View\ThuocBVTV\ThuocBVTVView.xaml.cs">
       <DependentUpon>ThuocBVTVView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\TrangChu\AddUser.xaml.cs">
+      <DependentUpon>AddUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TrangChu\AddXa.xaml.cs">
+      <DependentUpon>AddXa.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TrangChu\Trangchu.xaml.cs">
       <DependentUpon>Trangchu.xaml</DependentUpon>
     </Compile>
@@ -211,6 +217,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ThuocBVTV\ThuocBVTVView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TrangChu\AddUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TrangChu\AddXa.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TrangChu\Trangchu.xaml">
